@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancer OS & AI Hub — Notion Template for Digital Freelancers</title>
+  <meta name="description" content="The all-in-one Notion system for freelancers who use AI and automation. Manage clients, projects, income, prompts, and passive income streams — all in one place.">
+  <meta property="og:title" content="Freelancer OS & AI Hub — Notion Template">
+  <meta property="og:description" content="Stop juggling 5 apps. Manage your entire freelance business — clients, projects, invoices, AI prompts, and automations — in one clean Notion system.">
+  <meta property="og:type" content="product">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --border: #2a2a38;
+      --accent: #7c5cfc;
+      --accent2: #00d4aa;
+      --accent3: #ff6b6b;
+      --text: #e8e8f0;
+      --muted: #8888a0;
+      --glow: rgba(124, 92, 252, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+    .nav-cta {
+      background: var(--accent); color: white;
+      border: none; border-radius: 8px; padding: 0.5rem 1.25rem;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124,92,252,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,170,0.07) 0%, transparent 60%);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(124,92,252,0.15);
+      border: 1px solid rgba(124,92,252,0.4);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { 
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem; color: var(--muted);
+      max-width: 580px; margin: 0 auto 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #5b3fd4);
+      color: white; text-decoration: none;
+      border-radius: 12px; padding: 1rem 2.2rem;
+      font-size: 1.05rem; font-weight: 700;
+      box-shadow: 0 0 40px var(--glow);
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 60px var(--glow); }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 2rem; font-size: 1rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .price-tag {
+      margin-top: 1.5rem; font-size: 0.95rem; color: var(--muted);
+    }
+    .price-tag strong { color: var(--accent2); font-size: 1.4rem; }
+    .price-tag del { color: #555; }
+
+    /* SOCIAL PROOF */
+    .social-proof {
+      display: flex; align-items: center; justify-content: center; gap: 2rem;
+      padding: 1.5rem 2rem; flex-wrap: wrap;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .social-proof-item { text-align: center; }
+    .social-proof-item .num { font-size: 1.5rem; font-weight: 800; color: var(--accent2); }
+    .social-proof-item .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* FEATURES */
+    .section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 0.75rem; text-align: center; }
+    .section-sub { color: var(--muted); text-align: center; max-width: 500px; margin: 0 auto 3.5rem; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(124,92,252,0.04));
+    }
+    .feature-card:hover { border-color: rgba(124,92,252,0.5); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* MODULES */
+    .modules { background: var(--bg2); padding: 5rem 2rem; }
+    .modules-inner { max-width: 900px; margin: 0 auto; }
+    .module-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+    .module-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .module-num {
+      background: rgba(124,92,252,0.15); color: var(--accent);
+      font-weight: 700; border-radius: 8px; padding: 0.25rem 0.65rem;
+      font-size: 0.85rem; white-space: nowrap;
+    }
+    .module-item h4 { font-weight: 700; margin-bottom: 0.25rem; }
+    .module-item p { color: var(--muted); font-size: 0.85rem; }
+
+    /* PRICING */
+    .pricing { padding: 5rem 2rem; max-width: 600px; margin: 0 auto; text-align: center; }
+    .price-card {
+      background: var(--card);
+      border: 1px solid rgba(124,92,252,0.5);
+      border-radius: 24px; padding: 3rem 2.5rem;
+      box-shadow: 0 0 80px rgba(124,92,252,0.1);
+      position: relative;
+    }
+    .price-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white; border-radius: 100px; padding: 0.35rem 1.25rem;
+      font-size: 0.8rem; font-weight: 700; white-space: nowrap;
+    }
+    .price-amount { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin: 1rem 0 0.25rem; }
+    .price-amount sup { font-size: 1.5rem; vertical-align: top; margin-top: 0.75rem; }
+    .price-note { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    .price-includes { text-align: left; margin: 2rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
+    .price-includes li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; list-style: none; }
+    .price-includes li::before { content: '✓'; color: var(--accent2); font-weight: 700; flex-shrink: 0; }
+    .guarantee { margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: 0.85rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero > * { animation: fadeUp 0.6s ease both; }
+    .hero > *:nth-child(2) { animation-delay: 0.1s; }
+    .hero > *:nth-child(3) { animation-delay: 0.2s; }
+    .hero > *:nth-child(4) { animation-delay: 0.3s; }
+    .hero > *:nth-child(5) { animation-delay: 0.4s; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .hero { padding: 5rem 1rem 3rem; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">⚡ Freelancer OS</span>
+  <a href="#pricing" class="nav-cta">Get Template — $15</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">✨ Notion Template · AI-Powered · Instant Download</div>
+  <h1>Your Freelance Business,<br><span>Finally Organized</span></h1>
+  <p>Stop juggling 5 apps. Manage clients, projects, invoices, AI prompts, and passive income — in one clean Notion system.</p>
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-primary" id="hero-cta">Get the Template →</a>
+    <a href="#features" class="btn-secondary">See What's Inside</a>
+  </div>
+  <div class="price-tag">
+    Launch price: <strong>$15 USD</strong> <del>$29</del> · One-time payment · Instant access
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<div class="social-proof">
+  <div class="social-proof-item">
+    <div class="num">7</div>
+    <div class="label">Modules Included</div>
+  </div>
+  <div class="social-proof-item">
+    <div class="num">4</div>
+    <div class="label">Languages Available</div>
+  </div>
+  <div class="social-proof-item">
+    <div class="num">$0</div>
+    <div class="label">Notion Plan Required</div>
+  </div>
+  <div class="social-proof-item">
+    <div class="num">∞</div>
+    <div class="label">Updates Included</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <h2 class="section-title">Everything You Need to Run Your Freelance Business</h2>
+  <p class="section-sub">Built for digital freelancers, automation builders, and solopreneurs who use AI every day.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Client CRM</h3>
+      <p>Track every client, their projects, contact info, and follow-up dates. Never lose a lead again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📁</div>
+      <h3>Project Tracker</h3>
+      <p>Kanban, calendar, and list views. Track progress, deadlines, and deliverables in real-time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Income Dashboard</h3>
+      <p>Log every payment, track monthly goals, and see your income trend at a glance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>AI Prompt Library</h3>
+      <p>Organize your best prompts by category. Rate them, tag the model, and find them instantly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Automation Log</h3>
+      <p>Document every n8n, Make.com, or Zapier workflow you build — for yourself or clients.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌱</div>
+      <h3>Passive Income Tracker</h3>
+      <p>Monitor your digital products, templates, and APIs. Track traffic and income per project.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Opportunity Pipeline</h3>
+      <p>Score new business opportunities (0-10), classify by carril, and prioritize ruthlessly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="modules">
+  <div class="modules-inner">
+    <h2 class="section-title">7 Fully Built Modules</h2>
+    <p class="section-sub" style="margin-bottom:0">Ready to use out of the box. Customize to your workflow.</p>
+    <div class="module-list">
+      <div class="module-item">
+        <span class="module-num">01</span>
+        <div>
+          <h4>Dashboard Home</h4>
+          <p>360° overview: income this month, active projects, follow-ups due, and top opportunities.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">02</span>
+        <div>
+          <h4>Client CRM</h4>
+          <p>Client database with status, history, total billed, follow-up reminders, and preferred contact channel.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">03</span>
+        <div>
+          <h4>Project Manager</h4>
+          <p>Multi-view project tracker (Kanban / Calendar / List) with progress bars and linked clients.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">04</span>
+        <div>
+          <h4>Financial Tracker</h4>
+          <p>Log income in any currency. See monthly totals, pending amounts, and % toward your target.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">05</span>
+        <div>
+          <h4>AI & Automation Hub</h4>
+          <p>Prompt library + workflow registry. Document and rate your best AI tools and n8n workflows.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">06</span>
+        <div>
+          <h4>Passive Income Monitor</h4>
+          <p>Track deployed digital products with health checks, traffic, income, and abandonment criteria.</p>
+        </div>
+      </div>
+      <div class="module-item">
+        <span class="module-num">07</span>
+        <div>
+          <h4>Opportunity Pipeline</h4>
+          <p>Evaluate new opportunities with viability score, time to first income, and SIEMBRA/ACTIVO classification.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="price-card">
+    <div class="price-badge">🚀 Launch Price — Limited Time</div>
+    <div style="margin-top:1.5rem; color: var(--muted); font-size:0.9rem;">One-time payment</div>
+    <div class="price-amount"><sup>$</sup>15</div>
+    <div class="price-note">Regular price: <del>$29 USD</del></div>
+    <ul class="price-includes">
+      <li>Freelancer OS — Complete Notion Template</li>
+      <li>7 fully built modules (ready to use)</li>
+      <li>Available in EN / ES / PT / RU</li>
+      <li>Works with Notion Free Plan</li>
+      <li>Lifetime access + future updates</li>
+      <li>Quick-start guide included</li>
+    </ul>
+    <a href="https://gumroad.com" class="btn-primary" style="width:100%; text-align:center; display:block;" id="buy-cta">
+      Get Instant Access → $15
+    </a>
+    <p class="guarantee">🔒 Secure checkout via Gumroad · Instant delivery</p>
+  </div>
+</section>
+
+<footer>
+  <p>Freelancer OS & AI Hub · Built by Agente Gaudí · <a href="mailto:agente.gaudi@gmail.com" style="color:var(--accent)">agente.gaudi@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
