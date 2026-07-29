@@ -1,0 +1,198 @@
+{
+  "notion_template": {
+    "version": "1.0",
+    "name": "Freelancer OS & AI Hub",
+    "author": "Agente Gaudi",
+    "contact": "agente.gaudi@gmail.com",
+    "price_usd": 15,
+    "license": "CC BY-SA 4.0",
+    "created": "2026-07-29",
+    "notion_template_url": "PENDING_PUBLICATION",
+    "description": "All-in-one Notion system for digital freelancers using AI and automation.",
+    "compatible_plans": ["Free", "Plus", "Business"],
+    "languages": ["EN", "ES", "PT-BR", "RU"]
+  },
+  "setup_instructions": {
+    "step_1": "Click the Notion template link provided after purchase",
+    "step_2": "Click 'Duplicate' in the top-right corner of the Notion page",
+    "step_3": "Select your Notion workspace to duplicate into",
+    "step_4": "The template will copy with all 7 modules pre-configured",
+    "step_5": "Start with the Dashboard page and follow the setup guide inside",
+    "estimated_setup_time": "15 minutes"
+  },
+  "modules": [
+    {
+      "id": "dashboard",
+      "name": "📊 Dashboard Home",
+      "icon": "📊",
+      "description": "360° overview of your freelance business",
+      "properties": [
+        {"name": "Monthly Income", "type": "formula", "formula": "sum(prop('Income Tracker').filter(prop('Month') == today().month()))"},
+        {"name": "Monthly Goal", "type": "number", "default": 200},
+        {"name": "Goal Progress", "type": "formula"},
+        {"name": "Active Projects Count", "type": "rollup"},
+        {"name": "Follow-ups Due", "type": "filtered_view"}
+      ],
+      "views": ["Summary Cards", "Weekly Focus"]
+    },
+    {
+      "id": "crm",
+      "name": "👥 Client CRM",
+      "icon": "👥",
+      "description": "Complete client relationship management",
+      "database_properties": [
+        {"name": "Client Name", "type": "title"},
+        {"name": "Email", "type": "email"},
+        {"name": "Country", "type": "select", "options": ["USA", "Spain", "Brazil", "Saudi Arabia", "France", "Germany", "Russia", "Argentina", "Mexico", "UAE", "Other"]},
+        {"name": "Platform", "type": "select", "options": ["Upwork", "Fiverr", "Kwork", "Khamsat", "ComeUp", "Workana", "99Freelas", "Direct", "Gumroad", "Other"]},
+        {"name": "Status", "type": "select", "options": ["🔵 Prospect", "🟢 Active", "✅ Completed", "⚫ Inactive"]},
+        {"name": "Total Billed (USD)", "type": "number", "format": "dollar"},
+        {"name": "Next Follow-up", "type": "date"},
+        {"name": "Preferred Contact", "type": "select", "options": ["WhatsApp", "Email", "Telegram", "Platform DM"]},
+        {"name": "Notes", "type": "text"},
+        {"name": "Projects", "type": "relation", "linked_db": "projects"}
+      ],
+      "views": ["All Clients", "Active Only", "Follow-up Due This Week", "By Platform"]
+    },
+    {
+      "id": "projects",
+      "name": "📁 Project Manager",
+      "icon": "📁",
+      "description": "Track all client and personal projects",
+      "database_properties": [
+        {"name": "Project Name", "type": "title"},
+        {"name": "Client", "type": "relation", "linked_db": "crm"},
+        {"name": "Carril", "type": "select", "options": ["⚡ ACTIVO", "🌱 SIEMBRA"]},
+        {"name": "Status", "type": "select", "options": ["🟡 Not Started", "🔵 In Progress", "⏸️ On Hold", "✅ Completed", "❌ Cancelled"]},
+        {"name": "Progress %", "type": "number", "format": "percent"},
+        {"name": "Deadline", "type": "date"},
+        {"name": "Agreed Price (USD)", "type": "number", "format": "dollar"},
+        {"name": "Payment Status", "type": "select", "options": ["⏳ Pending", "💰 Partial", "✅ Paid"]},
+        {"name": "Deliverables", "type": "files"},
+        {"name": "Notes", "type": "text"}
+      ],
+      "views": ["Kanban (by Status)", "Calendar (by Deadline)", "List (All)", "In Progress Only", "Unpaid"]
+    },
+    {
+      "id": "finances",
+      "name": "💰 Financial Tracker",
+      "icon": "💰",
+      "description": "Track all income across projects and platforms",
+      "database_properties": [
+        {"name": "Description", "type": "title"},
+        {"name": "Project", "type": "relation", "linked_db": "projects"},
+        {"name": "Client", "type": "relation", "linked_db": "crm"},
+        {"name": "Amount (USD)", "type": "number", "format": "dollar"},
+        {"name": "Currency", "type": "select", "options": ["USD", "EUR", "BRL", "RUB", "AED", "GBP"]},
+        {"name": "Payment Method", "type": "select", "options": ["PayPal", "USDT (TRX)", "SOL", "MATIC", "Bank Transfer", "Wise", "Other"]},
+        {"name": "Date Received", "type": "date"},
+        {"name": "Month", "type": "formula", "formula": "formatDate(prop('Date Received'), 'MMMM YYYY')"},
+        {"name": "Status", "type": "select", "options": ["⏳ Pending", "✅ Received"]}
+      ],
+      "summary_formulas": {
+        "this_month_total": "sum(filter(prop('Amount (USD)'), prop('Month') == formatDate(now(), 'MMMM YYYY')))",
+        "goal_progress_pct": "this_month_total / 200 * 100"
+      },
+      "views": ["All Income", "By Month", "Pending Payments", "By Platform"]
+    },
+    {
+      "id": "ai_hub",
+      "name": "🤖 AI & Automation Hub",
+      "icon": "🤖",
+      "description": "Prompt library and automation registry",
+      "sub_databases": [
+        {
+          "name": "Prompt Library",
+          "properties": [
+            {"name": "Prompt Name", "type": "title"},
+            {"name": "Category", "type": "select", "options": ["Copywriting", "Automation Logic", "Code Generation", "Customer Reply", "SEO", "Research", "Sales", "System Prompt"]},
+            {"name": "AI Model", "type": "select", "options": ["ChatGPT-4o", "Claude Sonnet", "Claude Opus", "Gemini", "Coze", "Perplexity"]},
+            {"name": "Full Prompt", "type": "text"},
+            {"name": "Variables", "type": "text"},
+            {"name": "Rating", "type": "select", "options": ["⭐⭐⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐", "⭐⭐", "⭐"]},
+            {"name": "Use Count", "type": "number"},
+            {"name": "Language", "type": "select", "options": ["EN", "ES", "PT", "FR", "DE", "RU", "AR", "ZH", "IT"]}
+          ]
+        },
+        {
+          "name": "Automation Registry",
+          "properties": [
+            {"name": "Workflow Name", "type": "title"},
+            {"name": "Tool", "type": "select", "options": ["n8n", "Make.com", "Python", "Zapier", "Coze", "N8N + Python"]},
+            {"name": "Description", "type": "text"},
+            {"name": "Status", "type": "select", "options": ["✅ Active", "⏸️ Paused", "🔧 In Development", "❌ Deprecated"]},
+            {"name": "Client", "type": "relation", "linked_db": "crm"},
+            {"name": "Workflow File", "type": "files"},
+            {"name": "Monthly Value (USD)", "type": "number", "format": "dollar"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "siembra",
+      "name": "🌱 Passive Income Monitor",
+      "icon": "🌱",
+      "description": "Track all SIEMBRA (passive/planted) projects",
+      "database_properties": [
+        {"name": "Project Name", "type": "title"},
+        {"name": "Type", "type": "select", "options": ["Notion Template", "Digital Product", "Landing Page", "API / Tool", "Content Site", "Affiliate"]},
+        {"name": "Platform", "type": "select", "options": ["Gumroad", "Kiwify", "Etsy", "GitHub Pages", "Vercel", "RapidAPI", "Notion Marketplace"]},
+        {"name": "URL", "type": "url"},
+        {"name": "Published Date", "type": "date"},
+        {"name": "Status", "type": "select", "options": ["✅ Active", "⏸️ Paused", "🔧 Building", "❌ Abandoned"]},
+        {"name": "Monthly Traffic", "type": "number"},
+        {"name": "Monthly Income (USD)", "type": "number", "format": "dollar"},
+        {"name": "Total Income (USD)", "type": "number", "format": "dollar"},
+        {"name": "SEO Optimized", "type": "checkbox"},
+        {"name": "In Distribution Channels", "type": "checkbox"},
+        {"name": "Last Health Check", "type": "date"},
+        {"name": "Abandonment Flag", "type": "formula", "formula": "dateBetween(now(), prop('Published Date'), 'months') >= 3 AND prop('Monthly Income (USD)') == 0"}
+      ],
+      "views": ["All Projects", "Active Only", "By Income", "Health Check Due"]
+    },
+    {
+      "id": "pipeline",
+      "name": "🔍 Opportunity Pipeline",
+      "icon": "🔍",
+      "description": "Evaluate and track new business opportunities",
+      "database_properties": [
+        {"name": "Opportunity Name", "type": "title"},
+        {"name": "Source", "type": "select", "options": ["Reddit", "Kwork", "Workana", "Khamsat", "Direct Search", "DDG Search", "Community", "Referral"]},
+        {"name": "Market Language", "type": "select", "options": ["EN", "ES", "PT", "FR", "DE", "RU", "AR", "ZH", "IT"]},
+        {"name": "Carril", "type": "select", "options": ["⚡ ACTIVO", "🌱 SIEMBRA"]},
+        {"name": "Viability Score", "type": "number", "format": "number", "min": 0, "max": 10},
+        {"name": "Days to First Income", "type": "number"},
+        {"name": "Estimated Monthly (USD)", "type": "number", "format": "dollar"},
+        {"name": "Status", "type": "select", "options": ["🔍 Evaluating", "✅ Approved", "❌ Discarded", "🚀 Executing"]},
+        {"name": "Legal", "type": "checkbox"},
+        {"name": "Ethical", "type": "checkbox"},
+        {"name": "Zero Capital", "type": "checkbox"},
+        {"name": "Notes", "type": "text"}
+      ],
+      "views": ["All Opportunities", "High Score (>7.5)", "ACTIVO", "SIEMBRA", "Discarded"]
+    }
+  ],
+  "pre_loaded_prompts": [
+    {
+      "name": "Cold Outreach — Automation Service (EN)",
+      "category": "Sales",
+      "model": "Claude Sonnet",
+      "prompt": "Write a short, direct cold outreach message for {PLATFORM} offering n8n automation services to {TARGET_BUSINESS_TYPE}. Max 3 sentences. Be specific about 1 problem I solve. Tone: professional but human. Include a soft CTA. Business context: I build custom automations that save 5-20 hours/week.",
+      "variables": "{PLATFORM}, {TARGET_BUSINESS_TYPE}"
+    },
+    {
+      "name": "Service Description Optimizer",
+      "category": "Copywriting",
+      "model": "Claude Sonnet",
+      "prompt": "Rewrite this service description for {PLATFORM}: '''{ORIGINAL_TEXT}'''. Make it: (1) Lead with the outcome/benefit, (2) Use bullet points for deliverables, (3) Add social proof indicators, (4) End with urgency or scarcity. Target buyer: {TARGET_BUYER}. Max 150 words.",
+      "variables": "{PLATFORM}, {ORIGINAL_TEXT}, {TARGET_BUYER}"
+    },
+    {
+      "name": "n8n Workflow Explainer (Client Communication)",
+      "category": "Customer Reply",
+      "model": "ChatGPT-4o",
+      "prompt": "Explain this n8n workflow to a non-technical client in plain language: {WORKFLOW_DESCRIPTION}. Structure: 1) What problem it solves (1 sentence), 2) How it works (3 steps max), 3) What they need to provide to get started. Tone: friendly, clear, no jargon.",
+      "variables": "{WORKFLOW_DESCRIPTION}"
+    }
+  ]
+}
